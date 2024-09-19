@@ -63,13 +63,14 @@ $$
 $$
 在I/F开环拖动电机转速稳定后，通过线性衰减iq\* ,让电机的拖动电角度theta_re趋近于观测器电角度theta_hat，iq\* 衰减公式为：
 $$
-i_q^* = i_{q0}^* - K_i(t - t_0)
+i_q^* = i_{q0}^* - K_i(t - t_0)
+
 $$
 ​       I/F过渡的电机转速，电角度相位差，转矩电流iq\* 的变化过程如下图所示，在2.5s左右，iq\* 开始衰减，电角度相位差衰减逐渐衰减到接近0，在此过程中，电机转速保持恒定。
 
 
 
-![](.\img\02\Iq_decay_set_02.png)
+![](./assets/b/Iq_decay_set_02.png)
 
 当相位差小于阈值(>0), 即可停止iq\*衰减。
 
@@ -81,33 +82,33 @@ $$
 
 ​          通过simulink 对控制系统进行建模，分为全局变量、低频任务500Hz（计算速度环PI， 按键读取，给定速度信号处理）, 高频任务10kHz（电流环），ADC采样完成触发、仿真模型、串口读取指令。
 
-![](.\img\02\Sensorless_FOC_SYS_02.png)
+![](./assets/b/Sensorless_FOC_SYS_02.png)
 
 
 
 ​         这里将电机的控制状态分为4个阶段，第0阶段，Enable=0,电机停止转动；第1阶段，设置theta=0, Iq\* =初始值，电机对齐；第2阶段，电机处于|/F开环拖动，先线性增加拖动角速度，达到设定值后电机保持匀速转动，然后线性衰减Iq\* ,使得拖动电角度和观测器电角度的相位差小于设定阈值时，转矩电流iq\* 停止衰减，切换到下一阶段；第3阶段，通过观测器估计的电角度和速度进行闭环FOC控制，通过EnCloseLoop状态变量，来判断电机是否处于闭环状态。
 
-![](.\img\02\FOC_Change_Strategy_01.png)
+![](./assets/b/FOC_Change_Strategy_01.png)
 
 ​       第2阶段，主要通过几个积分器来实现斜坡函数，当电机的钻速达到预定的转速时，这里需要线性递减iq\*, 同时计算拖动电角度和观测器电角度的相位差，直到切换到下一阶段。
 
-![](.\img\02\Iq_ramp_decay_code_02.png)
+![](./assets/b/Iq_ramp_decay_code_02.png)
 
 
 
 几种状态之间的切换关系如下图所示：
 
-![](.\img\02\stateflow_foc_02.png)
+![](./assets/b/stateflow_foc_02.png)
 
 ​      电流计算以及设置过流保护阈值
 
-![](.\img\02\Current_read_02.png)
+![](./assets/b/Current_read_02.png)
 
 
 
 电流环PI计算，以及SVPWM调制， 信号监控，pwm信号输出等。
 
-![](.\img\02\CurrentLoop_SVPWM_Gen_02.png)
+![](./assets/b/CurrentLoop_SVPWM_Gen_02.png)
 
 ## 三  PMSM/BLDC的仿真
 
@@ -115,4 +116,4 @@ $$
 
 仿真bldc模型
 
-![](.\img\02\Sim_Plant_02.png)
+![](./assets/b/Sim_Plant_02.png)
