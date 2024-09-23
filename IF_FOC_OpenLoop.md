@@ -92,7 +92,7 @@ $$
 
 ### 3.1 硬件平台
 
-​       主控MCU采用STM32G474RET6，三相逆变器使用IHM08M1，电源采样24V开关电源。
+​       主控MCU采用STM32G474RET6，三相逆变器使用IHM07M1，电源采样24V开关电源。
 
 ![pmsm_IF_hardware_01](./assets/a/pmsm_IF_hardware_01.jpg)
 
